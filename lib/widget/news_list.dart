@@ -17,7 +17,7 @@ class _NewsListState extends State<NewsList> {
         future: context.read<News>().fetchData(null),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           print(snapshot);
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (context.watch<News>().dataList.length == 0) {
             return Center(
               child: CircularProgressIndicator(),
             );

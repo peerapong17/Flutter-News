@@ -15,8 +15,9 @@ class News with ChangeNotifier {
   }
 
   Future<String> fetchData(String? category) async {
-    _dataList.clear();
+    clearData();
     Uri url = new Uri();
+    
     if (category != null) {
       url =
           Uri.parse("$BASE_URI?country=us&category=$category&apiKey=$API_KEY");
@@ -44,35 +45,13 @@ class News with ChangeNotifier {
       print(err.toString());
       throw Exception("Something went wrong");
     }
+
     notifyListeners();
     return "success";
   }
 
-  Future<String> fetchDatasByGategory(String category) async {
-    Uri url =
-        Uri.parse("$BASE_URI?country=us&category=$category&apiKey=$API_KEY");
+  void clearData() {
     _dataList.clear();
-
-    try {
-      http.Response response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-
-        jsonResponse['articles'].forEach(
-          (data) {
-            if (data['urlToImage'] != null && data['description'] != null) {
-              Model.News news = Model.News.fromJson(data);
-              dataList.add(news);
-            }
-          },
-        );
-      }
-    } catch (err) {
-      print(err.toString());
-      throw Exception("Something went wrong");
-    }
     notifyListeners();
-    return "success";
   }
 }
