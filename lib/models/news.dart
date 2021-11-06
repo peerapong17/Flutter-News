@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-NewsData newsFromJson(String str) => NewsData.fromJson(json.decode(str));
+News newsFromJson(String str) => News.fromJson(json.decode(str));
 
-String newsToJson(NewsData data) => json.encode(data.toJson());
+String newsToJson(News data) => json.encode(data.toJson());
 
-class NewsData {
-  NewsData({
+class News {
+  News({
     required this.title,
     required this.description,
     required this.url,
@@ -21,7 +21,7 @@ class NewsData {
   String url;
   String urlToImage;
 
-  factory NewsData.fromJson(Map<String, dynamic> json) => NewsData(
+  factory News.fromJson(Map<String, dynamic> json) => News(
         title: json["title"],
         description: json["description"],
         url: json["url"],

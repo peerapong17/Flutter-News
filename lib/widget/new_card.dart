@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_api/provider/news.dart';
+import 'package:news_api/models/news.dart';
+import 'package:news_api/screens/news_detail.dart';
 
-import '../news_detail.dart';
 
-InkWell newsCard(BuildContext context, int index, News news) {
+InkWell newsCard(BuildContext context, News newsData) {
   return InkWell(
     customBorder: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
@@ -14,7 +14,7 @@ InkWell newsCard(BuildContext context, int index, News news) {
         context,
         CupertinoPageRoute(
           builder: (context) => NewsDetail(
-            link: news.dataList[index].url,
+            link: newsData.url,
           ),
         ),
       );
@@ -29,18 +29,18 @@ InkWell newsCard(BuildContext context, int index, News news) {
             shape: RoundedRectangleBorder(
                 side: BorderSide.none,
                 borderRadius: BorderRadius.circular(20.00)),
-            child: Image.network(news.dataList[index].urlToImage),
+            child: Image.network(newsData.urlToImage),
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.89,
             child: Column(
               children: [
                 Text(
-                  news.dataList[index].title.substring(0, 50),
+                  newsData.title.substring(0, 50),
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 SizedBox(height: 10,),
-                Text(news.dataList[index].description),
+                Text(newsData.description),
               ],
             ),
           )
